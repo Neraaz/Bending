@@ -1,4 +1,13 @@
+For flat ribbon, relax ions along all direction.
+For bent ribbon, relax edge metallic atoms only along periodic direction. all other ions are relaxed in all directions.
+For both also relax periodic direction.
+
+put kpoint 1 for vacuum direction. and perform convergence tests along length (periodic direction)
+
+Once, we have flat ribbon relaxed, use relax-length.py to calculate width (L0) of relaxed flat nanoribbon.
+
 First do band calculation. save WAVECAR. then use INCAR-charge to calculate band decomposed charge density
+
 
 for PBE, we can use chargecar and wavecar to read for band structure. add more points with 0 weight.
 for SCAN and Hybrid, we can add points with 0 weight after the IBZPOINT in IBZKPOINT. To plot the band, we need to remove few kpoint with non-zero weight.
