@@ -1,0 +1,3 @@
+bands-scan ==> bash script to submit multiple jobs
+extract ==> to extract the results.
+check-drift ==> this should be almost zero

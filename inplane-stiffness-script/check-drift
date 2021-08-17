@@ -1,0 +1,40 @@
+#! /bin/bash
+#
+workd=`pwd`
+for ((ii=1; ii<$3; ++ii)); do
+  for ((jj=1; jj<5; ++jj)); do
+  T=`grep "v$ii\ " $1 | awk '{print $2}'`
+  X=`grep "v$ii\ " $1 | awk '{print $3}'`
+  a=`grep "v$ii\ " $1 | awk '{print $4}'`
+  e=`grep "v$jj\ " strain | awk '{print $2}'`
+#  if [[ ! -d R$T$X ]] ; then
+#    echo " making R $T$X directory "
+#    mkdir R$T$X
+#  fi
+#  
+#  if [[ ! -d R$T$X/R-$e ]] ; then
+#   echo " making R$T$X/R-$e directory "
+#   mkdir R$T$X/R-$e
+#  fi
+#
+#
+#  awk -v var=$T$X-$e '{sub(/q40/,var);print}' \
+#        $2.sh > R$T$X/R-$e/$2.sh
+#  cp POSCAR/$2-unit.py R$T$X/R-$e
+#  cd R$T$X/R-$e/
+#    python $2-unit.py $a $T $X $e
+#  cd ../../ 
+# 
+#  cp ../POTCAR/POTCAR_$T$X R$T$X/R-$e/POTCAR
+#  cp INCAR KPOINTS R$T$X/R-$e
+# 
+  echo "$T $X $e" 
+################
+## SUBMIT JOB ##
+################
+  cd R$T$X/R-$e/
+   tail -n100 OUTCAR | grep drift 
+  cd ../../
+done
+done
+echo all done

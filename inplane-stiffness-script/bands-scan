@@ -1,0 +1,48 @@
+# This script takes 2 files 
+# First file has  4 columns "v1 T X a", T is transition metal, X is chalcogen atom, a is lattice constant
+# Second file is a strain file has 2 columns "v1 e"
+# we need job submission scripts (.sh, .slrum, etc.)
+# put 1T-unit.py, 1H-unit.py, and 1dT-unit.py in POSCAR folder
+# put necessary potcars (POTCAR_$T$X) in POTCAR folder.
+# ./bands-scan first-file structure-type(1T or 1H or 1dT)
+#! /bin/bash
+#
+workd=`pwd`
+for ((ii=1; ii<$3; ++ii)); do
+  for ((jj=1; jj<5; ++jj)); do
+  T=`grep "v$ii\ " $1 | awk '{print $2}'`
+  X=`grep "v$ii\ " $1 | awk '{print $3}'`
+  a=`grep "v$ii\ " $1 | awk '{print $4}'`
+  e=`grep "v$jj\ " strain | awk '{print $2}'`
+  if [[ ! -d R$T$X ]] ; then
+    echo " making R $T$X directory "
+    mkdir R$T$X
+  fi
+  
+  if [[ ! -d R$T$X/R-$e ]] ; then
+   echo " making R$T$X/R-$e directory "
+   mkdir R$T$X/R-$e
+  fi
+
+
+  awk -v var=$T$X-$e '{sub(/q40/,var);print}' \
+        $2.sh > R$T$X/R-$e/$2.sh
+  cp POSCAR/$2-unit.py R$T$X/R-$e
+  cd R$T$X/R-$e/
+    python $2-unit.py $a $T $X $e
+  cd ../../ 
+ 
+  cp POTCAR/POTCAR_$T$X R$T$X/R-$e/POTCAR
+  cp INCAR KPOINTS R$T$X/R-$e
+  
+################
+## SUBMIT JOB ##
+################
+  cd R$T$X/R-$e/
+#    qsub $2.sh
+#    sbatch $2.slrum
+    sleep 4s
+  cd ../../
+done
+done
+echo all done

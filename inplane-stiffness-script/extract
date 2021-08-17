@@ -1,0 +1,61 @@
+# This script extract the results from different folders. 
+# Energies are saved in Energy-$2 in format "strain min-energy"
+# relaxed geometries are saved in lattice-con-1H(or 1T or 1dT). 
+# ./extract vols 1T
+#! /bin/bash
+#
+workd=`pwd`
+
+rm Energy-$2
+rm lattice-con-$2
+echo "TMD    Strain      Energy" >> Energy-$2
+echo "TMD    Strain      a0   a   b0    b" >> lattice-con-$2
+
+for ((ii=1; ii<$3; ++ii)); do
+  for ((jj=1; jj<5; ++jj)); do
+  T=`grep "v$ii\ " $1 | awk '{print $2}'`
+  X=`grep "v$ii\ " $1 | awk '{print $3}'`
+  a=`grep "v$ii\ " $1 | awk '{print $4}'`
+  e=`grep "v$jj\ " strain | awk '{print $2}'`
+  a0=`sed -n 3p poscar0/CONTCAR-$T$X-$2.vasp | awk '{print $1}'`
+  a=`sed -n 3p R$T$X/R-$e/CONTCAR | awk '{print $1}'`
+  b0=`sed -n 4p poscar0/CONTCAR-$T$X-$2.vasp | awk '{print $2}'`
+  b=`sed -n 4p R$T$X/R-$e/CONTCAR | awk '{print $2}'`
+
+
+  E=`tail -n1 R$T$X/R-$e/OSZICAR | awk '{print $5}'`
+  echo "$T$X-2  $e   $a0    $a     $b0     $b" >> lattice-con-$2
+  echo "$T$X-2  $e   $E" >> Energy-$2
+
+#  if [[ ! -d R$T$X ]] ; then
+#    echo " making R $T$X directory "
+#    mkdir R$T$X
+#  fi
+#  
+#  if [[ ! -d R$T$X/R-$e ]] ; then
+#   echo " making R$T$X/R-$e directory "
+#   mkdir R$T$X/R-$e
+#  fi
+#
+#
+#  awk -v var=$T$X-$e '{sub(/q40/,var);print}' \
+#        $2.sh > R$T$X/R-$e/$2.sh
+#  cp POSCAR/$2-unit.py R$T$X/R-$e
+#  cd R$T$X/R-$e/
+#    python $2-unit.py $a $T $X $e
+#  cd ../../ 
+# 
+#  cp ../POTCAR/POTCAR_$T$X R$T$X/R-$e/POTCAR
+#  cp INCAR KPOINTS R$T$X/R-$e
+# 
+#  echo "$T $X $e" 
+#################
+### SUBMIT JOB ##
+#################
+#  cd R$T$X/R-$e/
+#    grep required accuracy OUTCAR
+#    
+#  cd ../../
+done
+done
+echo all done
