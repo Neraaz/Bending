@@ -12,4 +12,5 @@ echo "n=$nodes"
 echo "p=$ppn"
 nproc=$((n * p))
 cd $PBS_O_WORKDIR
-mpirun -np $nproc /home/tug11655/bin/vasp-y
+mpirun -np $nproc vasp-relax-only-ions #for inplane stiffness
+#mpirun -np $nproc vasp-relax-along-y (if x is strained, keep z fixed for poisson's ratio)
