@@ -1,0 +1,20 @@
+ISystem = 1H-MoS2
+
+#control-----------------------------------------------------------------
+ISTART  = 1          # job : 0-new 1-cont 2-samecut
+ENCUT   = 450     # 1.2x ENMAX for automatic (VASP) relaxation.
+ISMEAR  = 0
+SIGMA   = 0.1
+LMAXMIX = 4 # need for PAW
+NPAR    = 8
+#SCAN
+METAGGA = RTPSS
+LASPH = .True.
+ADDGRID = .True.
+# Band parameter-------------------------------------------------------
+LPARD = .True.
+IBAND = q1 q2 q3 q4 q5 q6
+KPUSE = 6 
+LSEPB = .TRUE.
+LWAVE = .FALSE.
+LCHARG = .FALSE.

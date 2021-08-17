@@ -1,0 +1,5 @@
+First do band calculation. save WAVECAR. then use INCAR-charge to calculate band decomposed charge density
+
+for PBE, we can use chargecar and wavecar to read for band structure. add more points with 0 weight.
+for SCAN and Hybrid, we can add points with 0 weight after the IBZPOINT in IBZKPOINT. To plot the band, we need to remove few kpoint with non-zero weight.
+the kpoint with 0 weight doesn't contribute to the total energy.

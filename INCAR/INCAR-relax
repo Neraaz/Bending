@@ -1,0 +1,24 @@
+ISystem = 1H-MoS2
+
+#control-----------------------------------------------------------------
+ISTART  = 1          # job : 0-new 1-cont 2-samecut
+ENCUT   = 450     # 1.2x ENMAX for automatic (VASP) relaxation.
+ISMEAR  = 0
+SIGMA   = 0.1
+LMAXMIX = 4 # need for PAW
+NPAR = 8
+#SCAN
+METAGGA = RTPSS
+LASPH = .True.
+ADDGRID = .True.
+
+# electron--------------------------------------------------------------
+NELM    = 100         # number of electronic SC steps
+NELMIN  = 6      
+EDIFF = 1E-5         # total energy difference between two electronic SC steps
+# Geom relaxation-------------------------------------------------------
+ISIF    = 3              # volume fixed
+IBRION  = 2          # RMM-DIIS
+NSW     = 200         # number of ionic relaxation steps
+EDIFFG  = -0.02   
+POTIM   = 0.3

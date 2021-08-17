@@ -1,0 +1,22 @@
+ISystem = 1H-MoS2
+
+#control-----------------------------------------------------------------
+ISTART  = 0          # job : 0-new 1-cont 2-samecut
+ENCUT   = 450     # 1.2x ENMAX for automatic (VASP) relaxation.
+ISMEAR  = 0
+SIGMA   = 0.1
+LMAXMIX = 4 # need for PAW
+NPAR    = 8
+#SCAN
+METAGGA = RTPSS
+LASPH = .True.
+ADDGRID = .True.
+# electron--------------------------------------------------------------
+NELM    = 100         # number of electronic SC steps
+NELMIN  = 6      
+EDIFF = 1E-5         # total energy difference between two electronic SC steps
+# Band parameter-------------------------------------------------------
+LORBIT = 11
+LCHARG = .True.
+LWAVE = .True.
+NEDOS = 3000
