@@ -8,5 +8,5 @@ If you use the scripts, please cite:
 https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.3.073601
 
 Written by
-Niraj K. Nepal, (niraj.nepal@temple.edu) 
-Postdoctoral Researcher, Ames National Laboratory
+Niraj K. Nepal, (nepalneeraz@gmail.com) 
+Senior computational Scientist, PSC
